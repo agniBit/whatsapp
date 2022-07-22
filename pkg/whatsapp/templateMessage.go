@@ -40,7 +40,7 @@ func (waS waService) SendTemplateMessage(templateName, phone_number, parameters 
 		return nil, err
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer EAALec6q4US4BAOVXMhsZCQ1emZCHWwPE5HBeqtpCGFhq8wqOC0ZBFOqJRHV88fcra4Om69Kn7XVcUUfZAV3ZBUE9ilrwSJdt21bk9LrGfM2jPZBMUxOqAZCitATtZCsUT7BPQZB2k2l47B7RsuY1DjFV0AXnIq6ZBOc9gsV6EsopvYLkTsJQw5jbvSZAldQMioSXFZBh9D7IZB0OUagiPZC8cATkJZB")
+	req.Header.Add("Authorization", "Bearer "+waS.cgf.Whatsapp.Token)
 
 	res, err := client.Do(req)
 	if err != nil {

@@ -11,21 +11,31 @@ import (
 	"github.com/agniBit/whatsapp/pkg/gateway"
 	httpS "github.com/agniBit/whatsapp/pkg/gateway/transport"
 	"github.com/agniBit/whatsapp/pkg/whatsapp"
+	"github.com/agniBit/whatsapp/util/config"
 	"github.com/labstack/echo/v4"
 )
 
 func Start() error {
+	// load config
+	cfg, err := config.Load("./util/config/config.yaml")
+	if err != nil {
+		panic(err)
+	}
+
+	// create new echo instance
 	e := echo.New()
+
+	// create api group
 	v1 := e.Group("/api/v1")
 
 	// init whatsapp service
-	waS := whatsapp.New()
+	waS := whatsapp.New(cfg)
 
 	// init gateway service
 	gatewayS := gateway.New(waS)
 
 	// init gateway transport
-	httpS.NewHTTP(gatewayS, v1)
+	httpS.NewHTTP(gatewayS, cfg, v1)
 
 	// start server
 	StartServer(e)
