@@ -7,21 +7,21 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/agniBit/whatsapp/model"
+	"github.com/agniBit/whatsapp/type/whatsapp"
 )
 
-func (waS waService) SendTemplateMessage(templateName, phone_number, parameters string) (*model.TemplateMessageResponse, error) {
+func (waS waService) SendTemplateMessage(templateName, phone_number, parameters string) (*whatsapp.TemplateMessageResponse, error) {
 	url := "https://graph.facebook.com/v13.0/104569905665986/messages"
 	method := "POST"
 
-	templatePayload := &model.TemplateMessagePayload{
+	templatePayload := &whatsapp.TemplateMessagePayload{
 		MessagingProduct: "whatsapp",
 		RecipientType:    "individual",
 		To:               phone_number,
 		Type:             "template",
-		Template: &model.TemplateInfo{
+		Template: &whatsapp.TemplateInfo{
 			Name:     templateName,
-			Language: &model.Language{Code: "en_US"},
+			Language: &whatsapp.Language{Code: "en_US"},
 		},
 	}
 
@@ -56,7 +56,7 @@ func (waS waService) SendTemplateMessage(templateName, phone_number, parameters 
 	}
 	fmt.Println(string(body))
 
-	resBody := &model.TemplateMessageResponse{}
+	resBody := &whatsapp.TemplateMessageResponse{}
 	err = json.Unmarshal(body, &resBody)
 
 	if err != nil {
