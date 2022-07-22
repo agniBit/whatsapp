@@ -28,15 +28,15 @@ type (
 	}
 
 	TemplateParameters struct {
-		Type     string             `json:"type"`
-		Text     string             `json:"text,omitempty"`
-		Currency string             `json:"currency,omitempty"`
-		DateTime *TeamplateDateTime `json:"date_time,omitempty"`
+		Type     string            `json:"type"`
+		Text     string            `json:"text,omitempty"`
+		Currency string            `json:"currency,omitempty"`
+		DateTime *TemplateDateTime `json:"date_time,omitempty"`
 	}
 
-	TeamplateDateTime struct {
+	TemplateDateTime struct {
 		FallbackValue string `json:"fallback_value,omitempty"`
-		Dayofweek     int    `json:"day_of_week,omitempty"`
+		DayOfWeek     int    `json:"day_of_week,omitempty"`
 		Year          int    `json:"year,omitempty"`
 		Month         int    `json:"month,omitempty"`
 		Day_of_month  int    `json:"day_of_month,omitempty"`
