@@ -1,5 +1,5 @@
 server:
   subscribe_verify_token: XXXXXXXXX
 
-Whatsapp:
+whatsapp:
   token: XXXXXXXXX
