@@ -20,7 +20,7 @@ cmd/api/__debug_bin
 .DS_Store
 
 .vscode
+.vscode/launch.json
 !.vscode/settings.json
 !.vscode/launch.example.json
-.vscode/launch.json
 
