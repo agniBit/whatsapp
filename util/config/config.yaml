@@ -3,3 +3,4 @@ server:
 
 whatsapp:
   token: XXXXXXXXX
+  url: https://graph.facebook.com/v13.0/104569905665986/messages

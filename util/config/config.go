@@ -20,6 +20,7 @@ type (
 
 	Whatsapp struct {
 		Token string `json:"token" yaml:"token"`
+		URL   string `json:"url" yaml:"url"`
 	}
 )
 
@@ -42,6 +43,11 @@ func Load(path string) (*Config, error) {
 	wt := os.Getenv("WHATSAPP_TOKEN")
 	if wt != "" {
 		config.Whatsapp.Token = wt
+	}
+
+	wtURL := os.Getenv("WHATSAPP_BASE_URL")
+	if wt != "" {
+		config.Whatsapp.URL = wtURL
 	}
 
 	return config, nil

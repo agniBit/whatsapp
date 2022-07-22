@@ -11,7 +11,6 @@ import (
 )
 
 func (waS waService) SendTemplateMessage(templateName, phone_number, parameters string) (*whatsapp.TemplateMessageResponse, error) {
-	url := "https://graph.facebook.com/v13.0/104569905665986/messages"
 	method := "POST"
 
 	templatePayload := &whatsapp.TemplateMessagePayload{
@@ -33,7 +32,7 @@ func (waS waService) SendTemplateMessage(templateName, phone_number, parameters 
 	payload := strings.NewReader(string(payloadString))
 
 	client := &http.Client{}
-	req, err := http.NewRequest(method, url, payload)
+	req, err := http.NewRequest(method, waS.cgf.Whatsapp.URL, payload)
 
 	if err != nil {
 		fmt.Println(err)
