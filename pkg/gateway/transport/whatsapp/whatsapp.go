@@ -21,6 +21,7 @@ func NewHTTP(svc gateway.Service, cfg *config.Config, e *echo.Group) {
 	e.POST("/wa/webhook", h.messageEventWebhook)
 }
 
+
 func (h *HTTP) index(c echo.Context) error {
 	return c.JSON(200, map[string]string{
 		"message": "Hello, World!",

@@ -2,24 +2,27 @@ package whatsapp
 
 type (
 	Service interface {
-		SendTemplateMessage(templateName, phone_number, parameters string) (*TemplateMessageResponse, error)
+		SendTemplateMessage(templateName, phone_number, parameters string) (*WaResponse, error)
 	}
-	TemplateMessagePayload struct {
-		MessagingProduct string        `json:"messaging_product"`
-		RecipientType    string        `json:"recipient_type"`
-		To               string        `json:"to"`
-		Type             string        `json:"type"`
-		Template         *TemplateInfo `json:"template"`
+	WaMessagePayload struct {
+		MessagingProduct string                    `json:"messaging_product,omitempty"`
+		RecipientType    string                    `json:"recipient_type,omitempty"`
+		To               string                    `json:"to,omitempty"`
+		Type             string                    `json:"type,omitempty"`
+		Template         *WaTemplateData           `json:"template,omitempty"`
+		Text             *WaTextMessageData        `json:"text,omitempty"`
+		Image            *WaImageMessageData       `json:"image,omitempty"`
+		Interactive      *WaInteractiveMessageData `json:"interactive,omitempty"`
 	}
 
-	TemplateInfo struct {
-		Name       string               `json:"name"`
-		Language   *Language            `json:"language"`
+	WaTemplateData struct {
+		Name       string               `json:"name,omitempty"`
+		Language   *Language            `json:"language,omitempty"`
 		Components []*TemplateComponent `json:"components,omitempty"`
 	}
 
 	Language struct {
-		Code string `json:"code"`
+		Code string `json:"code,omitempty"`
 	}
 
 	TemplateComponent struct {
@@ -28,7 +31,7 @@ type (
 	}
 
 	TemplateParameters struct {
-		Type     string            `json:"type"`
+		Type     string            `json:"type,omitempty"`
 		Text     string            `json:"text,omitempty"`
 		Currency string            `json:"currency,omitempty"`
 		DateTime *TemplateDateTime `json:"date_time,omitempty"`
@@ -45,26 +48,83 @@ type (
 		Calendar      string `json:"calendar,omitempty"`
 	}
 
-	TemplateMessageResponse struct {
-		MessagingProduct string              `json:"messaging_product"`
-		Contacts         []*TemplateContacts `json:"contacts"`
-		Message          []*TemplateMessages `json:"messages"`
+	WaResponse struct {
+		MessagingProduct string              `json:"messaging_product,omitempty"`
+		Contacts         []*TemplateContacts `json:"contacts,omitempty"`
+		Message          []*TemplateMessages `json:"messages,omitempty"`
 		Error            *Error              `json:"error,omitempty"`
 	}
 
 	TemplateContacts struct {
-		Input string `json:"input"`
-		WaId  string `json:"wa_id"`
+		Input string `json:"input,omitempty"`
+		WaId  string `json:"wa_id,omitempty"`
 	}
 
 	TemplateMessages struct {
-		Id string `json:"id"`
+		Id string `json:"id,omitempty"`
 	}
 
 	Error struct {
-		Message   string `json:"message"`
-		Type      string `json:"type"`
-		Code      int    `json:"code"`
-		FbtraceId string `json:"fbtrace_id"`
+		Message   string `json:"message,omitempty"`
+		Type      string `json:"type,omitempty"`
+		Code      int    `json:"code,omitempty"`
+		FbtraceId string `json:"fbtrace_id,omitempty"`
+	}
+
+	WaTextMessageData struct {
+		PreviewUrl bool   `json:"preview_url,omitempty"`
+		Body       string `json:"body,omitempty"`
+	}
+
+	WaImageMessageData struct {
+		ID string `json:"id,omitempty"`
+	}
+
+	WaInteractiveMessageData struct {
+		Type   string                      `json:"type,omitempty"`
+		Header *WaInteractiveMessageHeader `json:"header,omitempty"`
+		Body   *WaInteractiveMessageBody   `json:"body,omitempty"`
+		Footer *WaInteractiveMessageFooter `json:"footer,omitempty"`
+		Action *WaInteractiveMessageAction `json:"action,omitempty"`
+	}
+
+	WaInteractiveMessageHeader struct {
+		Type string `json:"type,omitempty"`
+		Text string `json:"text,omitempty"`
+	}
+
+	WaInteractiveMessageBody struct {
+		Text string `json:"text,omitempty"`
+	}
+
+	WaInteractiveMessageFooter struct {
+		Text string `json:"text,omitempty"`
+	}
+
+	WaInteractiveMessageAction struct {
+		Button   string                               `json:"button,omitempty"`
+		Buttons  []*WaInteractiveMessageActionButton  `json:"buttons,omitempty"`
+		Sections []*WaInteractiveMessageActionSection `json:"sections,omitempty"`
+	}
+
+	WaInteractiveMessageActionSection struct {
+		Title string                                  `json:"title,omitempty"`
+		Rows  []*WaInteractiveMessageActionSectionRow `json:"rows,omitempty"`
+	}
+
+	WaInteractiveMessageActionSectionRow struct {
+		ID          string `json:"id,omitempty"`
+		Title       string `json:"title,omitempty"`
+		Description string `json:"description,omitempty"`
+	}
+
+	WaInteractiveMessageActionButton struct {
+		Type  string                                 `json:"type,omitempty"`
+		Reply *WaInteractiveMessageActionButtonReply `json:"reply,omitempty"`
+	}
+
+	WaInteractiveMessageActionButtonReply struct {
+		ID    string `json:"id,omitempty"`
+		Title string `json:"title,omitempty"`
 	}
 )

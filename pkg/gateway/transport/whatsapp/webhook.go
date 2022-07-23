@@ -1,11 +1,11 @@
 package transport
 
 import (
+	"encoding/json"
 	"fmt"
-	"io"
-	"log"
 	"net/http"
 
+	"github.com/agniBit/whatsapp/type/whatsapp"
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,23 +24,23 @@ func (h *HTTP) verifyCallback(c echo.Context) error {
 }
 
 func (h *HTTP) messageEventWebhook(c echo.Context) error {
-	b, err := io.ReadAll(c.Request().Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	fmt.Println("hellow", string(b))
-
-	// waWebhook := &whatsapp.WaWebhook{}
-
-	// if err := c.Bind(waWebhook); err != nil {
-	// 	return err
-	// }
-	// json, err := json.Marshal(waWebhook)
+	// b, err := io.ReadAll(c.Request().Body)
 	// if err != nil {
-	// 	return err
+	// 	log.Fatalln(err)
 	// }
+	// fmt.Println("hellow", string(b))
 
-	// fmt.Println("bind :- ", string(json))
+	waWebhook := &whatsapp.WaWebhook{}
+
+	if err := c.Bind(waWebhook); err != nil {
+		return err
+	}
+	json, err := json.Marshal(waWebhook)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("bind :- ", string(json))
 
 	return c.JSON(200, http.StatusOK)
 }
