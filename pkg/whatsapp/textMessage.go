@@ -4,7 +4,7 @@ import (
 	"github.com/agniBit/whatsapp/type/whatsapp"
 )
 
-func (waS waService) SendTextMessage(templateName, phone_number, message string) (*whatsapp.WaResponse, error) {
+func (waS WaService) SendTextMessage(phone_number, message string) (*whatsapp.WaResponse, error) {
 	textPayload := whatsapp.WaMessagePayload{
 		MessagingProduct: "whatsapp",
 		RecipientType:    "individual",

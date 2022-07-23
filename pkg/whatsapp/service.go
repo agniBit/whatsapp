@@ -2,10 +2,10 @@ package whatsapp
 
 import "github.com/agniBit/whatsapp/util/config"
 
-type waService struct {
+type WaService struct {
 	cgf *config.Config
 }
 
-func New(cfg *config.Config) waService {
-	return waService{cgf: cfg}
+func New(cfg *config.Config) WaService {
+	return WaService{cgf: cfg}
 }

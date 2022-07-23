@@ -19,8 +19,9 @@ type (
 	}
 
 	Whatsapp struct {
-		Token string `json:"token" yaml:"token"`
-		URL   string `json:"url" yaml:"url"`
+		Token           string `json:"token" yaml:"token"`
+		URL             string `json:"url" yaml:"url"`
+		TestPhoneNumber string `json:"test_phone_number" yaml:"test_phone_number"`
 	}
 )
 

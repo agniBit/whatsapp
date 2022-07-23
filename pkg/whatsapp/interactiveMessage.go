@@ -6,7 +6,7 @@ import (
 	"github.com/agniBit/whatsapp/type/whatsapp"
 )
 
-func (waS waService) SenInteractiveButtonMessage(templateName, phone_number, message string, buttonTexts []string, buttons []*whatsapp.WaInteractiveMessageActionButton) (*whatsapp.WaResponse, error) {
+func (waS WaService) SendInteractiveButtonMessage(templateName, phone_number, message string, buttonTexts []string, buttons []*whatsapp.WaInteractiveMessageActionButton) (*whatsapp.WaResponse, error) {
 	if len(buttons) == 0 {
 		buttons = []*whatsapp.WaInteractiveMessageActionButton{}
 
@@ -40,7 +40,7 @@ func (waS waService) SenInteractiveButtonMessage(templateName, phone_number, mes
 	return waS.SendMessage(templatePayload)
 }
 
-func (waS waService) SenInteractiveListMessage(templateName, phone_number, header, message, footer, buttonText, listTitle string, sections []*whatsapp.WaInteractiveMessageActionSection) (*whatsapp.WaResponse, error) {
+func (waS WaService) SendInteractiveListMessage(phone_number, header, message, footer, buttonText string, sections []*whatsapp.WaInteractiveMessageActionSection) (*whatsapp.WaResponse, error) {
 	templatePayload := whatsapp.WaMessagePayload{
 		MessagingProduct: "whatsapp",
 		RecipientType:    "individual",

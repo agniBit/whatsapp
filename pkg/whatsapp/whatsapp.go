@@ -21,7 +21,7 @@ func NewHTTP(svc *gateway.Service) *HTTP {
 	}
 }
 
-func (waS waService) SendMessage(payload whatsapp.WaMessagePayload) (*whatsapp.WaResponse, error) {
+func (waS WaService) SendMessage(payload whatsapp.WaMessagePayload) (*whatsapp.WaResponse, error) {
 	method := "POST"
 
 	payloadString, err := json.Marshal(payload)

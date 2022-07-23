@@ -2,8 +2,13 @@ package whatsapp
 
 type (
 	Service interface {
-		SendTemplateMessage(templateName, phone_number, parameters string) (*WaResponse, error)
+		SendTemplateMessage(templateName, phone_number string, parameters *map[string]string) (*WaResponse, error)
+		SendTextMessage(phone_number, message string) (*WaResponse, error)
+		SendMediaMessage(phone_number string, imageData *WaImageMessageData) (*WaResponse, error)
+		SendInteractiveButtonMessage(templateName, phone_number, message string, buttonTexts []string, buttons []*WaInteractiveMessageActionButton) (*WaResponse, error)
+		SendInteractiveListMessage(phone_number, header, message, footer, buttonText string, sections []*WaInteractiveMessageActionSection) (*WaResponse, error)
 	}
+
 	WaMessagePayload struct {
 		MessagingProduct string                    `json:"messaging_product,omitempty"`
 		RecipientType    string                    `json:"recipient_type,omitempty"`
@@ -77,7 +82,8 @@ type (
 	}
 
 	WaImageMessageData struct {
-		ID string `json:"id,omitempty"`
+		ID   string `json:"id,omitempty"`
+		Link string `json:"link,omitempty"`
 	}
 
 	WaInteractiveMessageData struct {
