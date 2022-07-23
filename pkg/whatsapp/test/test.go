@@ -10,7 +10,7 @@ type WaTestService struct {
 	waS whatsapp.WaService
 }
 
-func TestWhatsapp(waS whatsapp.WaService, cfg *config.Config) error {
+func Test(waS whatsapp.WaService, cfg *config.Config) error {
 	waTestService := &WaTestService{waS: waS, cfg: cfg}
 
 	// test template messages
