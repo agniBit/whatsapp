@@ -24,12 +24,6 @@ func (h *HTTP) verifyCallback(c echo.Context) error {
 }
 
 func (h *HTTP) messageEventWebhook(c echo.Context) error {
-	// b, err := io.ReadAll(c.Request().Body)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
-	// fmt.Println("hellow", string(b))
-
 	waWebhook := &whatsapp.WaWebhook{}
 
 	if err := c.Bind(waWebhook); err != nil {
