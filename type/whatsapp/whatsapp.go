@@ -5,7 +5,7 @@ type (
 		SendTemplateMessage(templateName, phone_number string, parameters *map[string]string) (*WaResponse, error)
 		SendTextMessage(phone_number, message string) (*WaResponse, error)
 		SendMediaMessage(phone_number string, imageData *WaImageMessageData) (*WaResponse, error)
-		SendInteractiveButtonMessage(templateName, phone_number, message string, buttonTexts []string, buttons []*WaInteractiveMessageActionButton) (*WaResponse, error)
+		SendInteractiveButtonMessage(phone_number, message string, buttonTexts []string, buttons []*WaInteractiveMessageActionButton) (*WaResponse, error)
 		SendInteractiveListMessage(phone_number, header, message, footer, buttonText string, sections []*WaInteractiveMessageActionSection) (*WaResponse, error)
 	}
 
