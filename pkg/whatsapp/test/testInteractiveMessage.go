@@ -32,7 +32,7 @@ func (t *WaTestService) TestInteractiveMessages() error {
 		},
 	}
 
-	resp, err := t.waS.SendInteractiveButtonMessage(t.cfg.Whatsapp.TestPhoneNumber, "Hello World", "testing Interactive button message by payload", []string{}, payload)
+	resp, err := t.waS.SendInteractiveButtonMessage(t.cfg.Whatsapp.TestPhoneNumber, "testing Interactive button message by payload", []string{}, payload)
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func (t *WaTestService) TestInteractiveMessages() error {
 	}
 
 	// send interactive button messages using list of button text
-	resp, err = t.waS.SendInteractiveButtonMessage(t.cfg.Whatsapp.TestPhoneNumber, "Hello World", "testing Interactive button message by list of button text", []string{"Button 1", "Button 2", "Button 3"}, nil)
+	resp, err = t.waS.SendInteractiveButtonMessage(t.cfg.Whatsapp.TestPhoneNumber, "testing Interactive button message by list of button text", []string{"Button 1", "Button 2", "Button 3"}, nil)
 	if err != nil {
 		return err
 	}

@@ -47,8 +47,13 @@ func Load(path string) (*Config, error) {
 	}
 
 	wtURL := os.Getenv("WHATSAPP_BASE_URL")
-	if wt != "" {
+	if wtURL != "" {
 		config.Whatsapp.URL = wtURL
+	}
+
+	wtTestPhoneNumber := os.Getenv("WA_TEST_PHONE")
+	if wtTestPhoneNumber != "" {
+		config.Whatsapp.TestPhoneNumber = wtTestPhoneNumber
 	}
 
 	return config, nil
