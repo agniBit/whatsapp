@@ -2,66 +2,25 @@ package whatsapp
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strings"
 
-	"github.com/agniBit/whatsapp/pkg/gateway"
+	"github.com/agniBit/whatsapp/pkg/worker"
 	"github.com/agniBit/whatsapp/type/whatsapp"
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
-type HTTP struct {
-	svc *gateway.Service
-}
-
-func NewHTTP(svc *gateway.Service) *HTTP {
-	return &HTTP{
-		svc: svc,
-	}
-}
-
 func (waS WaService) SendMessage(payload whatsapp.WaMessagePayload) (*whatsapp.WaResponse, error) {
-	method := "POST"
-
-	payloadString, err := json.Marshal(payload)
+	val, err := json.Marshal(payload)
 	if err != nil {
 		return nil, err
 	}
 
-	payloadReader := strings.NewReader(string(payloadString))
+	topic := string(worker.KafkaTopicWhatsAppMessage)
 
-	client := &http.Client{}
-	req, err := http.NewRequest(method, waS.cgf.Whatsapp.URL, payloadReader)
+	err = waS.pub.Produce(&kafka.Message{
+		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
+		Key:            []byte(topic),
+		Value:          val,
+	}, nil)
 
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer "+waS.cgf.Whatsapp.Token)
-
-	res, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-	fmt.Println(string(body))
-
-	resBody := &whatsapp.WaResponse{}
-	err = json.Unmarshal(body, &resBody)
-
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-
-	return resBody, nil
+	return nil, err
 }
