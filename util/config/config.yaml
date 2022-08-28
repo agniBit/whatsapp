@@ -5,3 +5,14 @@ whatsapp:
   token: XXXXXXXXX
   url: https://graph.facebook.com/v13.0/104569905665986/messages
   test_phone_number: XXXXXXXXXX
+
+kafka:
+  bootstrap:
+    servers: XXXXXXX
+  security:
+    protocol: SASL_SSL
+  sasl:
+    mechanisms: PLAIN
+    username: XXXXXXX
+    password: XXXXXXXXX
+  acks: all

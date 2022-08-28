@@ -12,6 +12,7 @@ import (
 	httpS "github.com/agniBit/whatsapp/pkg/gateway/transport"
 	"github.com/agniBit/whatsapp/pkg/whatsapp"
 	"github.com/agniBit/whatsapp/util/config"
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/labstack/echo/v4"
 )
 
@@ -22,6 +23,13 @@ func Start() error {
 		panic(err)
 	}
 
+	// create new kafka publisher
+	kafkaConfig := config.ReadKafkaConfig(cfg.Kafka)
+	pub, err := kafka.NewProducer(&kafkaConfig)
+	if err != nil {
+		return err
+	}
+
 	// create new echo instance
 	e := echo.New()
 
@@ -29,7 +37,7 @@ func Start() error {
 	v1 := e.Group("/api/v1")
 
 	// init whatsapp service
-	waS := whatsapp.New(cfg)
+	waS := whatsapp.New(cfg, pub)
 
 	// init gateway service
 	gatewayS := gateway.New(waS)
